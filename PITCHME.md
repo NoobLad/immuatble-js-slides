@@ -170,7 +170,7 @@ const datedPost = Object.assign(
     post,
     {createdDate: new Date()}
 )
-// Attention cela le clone que le premier niveau
+// Attention cela ne clone que le premier niveau
 delete datedPost.random // Toujours pas de vrai solution,
 // mettre null ou undefined ?
 ```
@@ -190,7 +190,7 @@ const datedPost = {
     ...intermediate, // Stage 3
     date: new Date()
 }
-// Attention cela le clone que le premier niveau
+// Attention cela ne clone que le premier niveau
 ```
 
 ---
@@ -210,13 +210,17 @@ const post = Object.freeze({ title: 'super titre' })
 
 Avec immuatble.js vous avez de véritable objets/collections immuables !
 
-Quand éviter ?
++++
+
+##Quand éviter ?
 * Besoin de collection native à js
 * Eviter 15Kb gzippé de js en plus
 * Alergie à la programmation fonctionnelle
 * Avec vuejs ou preact par exemple
 
-Quand l'utiliser ?
++++
+
+##Quand l'utiliser ?
 * Avoir une meilleur API de collection
 * Forcer l'immuabilité sans s'en soucier
 
