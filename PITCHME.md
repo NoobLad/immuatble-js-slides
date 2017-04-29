@@ -6,6 +6,8 @@
 
 # Pourquoi ?
 
+Cela peut permettre dans certains cas d'augmenter les performances.
+
 ---
 
 # Sur une collection
@@ -15,8 +17,8 @@
 # Ajouter un élément
 
 +++
-
-## ES5
+## Ajouter un élément
+### ES5
 
 ```javascript
 var original = ['angular', 'react', 'vue']
@@ -25,12 +27,15 @@ var newAfter = original.concat('preact')
 
 var newBefore = ['preact'].concat(original)
 
-var newSomeWhere = original.slice(0, 2).concat('preact').concat(original.slice(2))
+var newSomeWhere = original
+                    .slice(0, 2)
+                    .concat('preact')
+                    .concat(original.slice(2))
 ```
 
 +++
-
-## ES6 / ES2015
+## Ajouter un élément
+### ES6 / ES2015
 
 ```javascript
 const original = ['angular', 'react', 'vue']
@@ -43,7 +48,11 @@ const [one, two, ...rest] = original
 
 const newSomeWhere = [one, two, 'preact', ...rest]
 // ou
-// const newSomeWhere = [...original.slice(0, 2), 'preact', ...original.slice(2)]
+const newSomeWhere2 = [
+    ...original.slice(0, 2),
+    'preact',
+    ...original.slice(2)
+]
 ```
 
 ---
@@ -51,8 +60,8 @@ const newSomeWhere = [one, two, 'preact', ...rest]
 # Retirer un élément
 
 +++
-
-## ES5
+## Retirer un élément
+### ES5
 
 ```javascript
 var original = ['angular', 'react', 'vue']
@@ -61,12 +70,14 @@ var lastRemoved = original.slice(0, -1)
 
 var firstRemoved = original.slice(1)
 
-var newSomeWhere = original.slice(0, 1).concat(original.slice(2))
+var newSomeWhere = original
+                    .slice(0, 1)
+                    .concat(original.slice(2))
 ```
 
 +++
-
-## ES6 / ES2015
+## Retirer un élément
+### ES6 / ES2015
 
 ```javascript
 const original = ['angular', 'react', 'vue']
@@ -75,7 +86,10 @@ const lastRemoved = original.slice(0, -1)
 
 const [ , ...firstRemoved] = original
 
-const newSomeWhere = [...original.slice(0, 1), ...original.slice(2)]
+const newSomeWhere = [
+    ...original.slice(0, 1),
+    ...original.slice(2)
+]
 ```
 
 ---
@@ -83,14 +97,14 @@ const newSomeWhere = [...original.slice(0, 1), ...original.slice(2)]
 # Altérer/filtrer les valeurs
 
 +++
-
-## ES5
+## Altérer/filtrer les valeurs
+### ES5
 
 ```javascript
 var original = ['angular', 'react', 'vue']
 
 var modified = original.map(function(valeur, i) {
-    var prefix = i % 2 === 0 ? 'Old Fashioned' : 'Hyper'
+    var prefix = i % 2 === 0 ? 'Old Fashioned' : 'Hype'
     return prefix + ' ' + valeur
 })
 
@@ -100,14 +114,14 @@ var hypeDriven = original.filter(function (valeur, i) {
 ```
 
 +++
-
-## ES5 / ES2015
+## Altérer/filtrer les valeurs
+### ES6 / ES2015
 
 ```javascript
 const original = ['angular', 'react', 'vue']
 
 const modified = original.map((valeur, i) =>{
-    const prefix = i % 2 === 0 ? 'Old Fashioned' : 'Hyper'
+    const prefix = i % 2 === 0 ? 'Old Fashioned' : 'Hype'
     return `${prefix} ${valeur}`
 })
 
@@ -123,8 +137,8 @@ const hypeDriven = original.filter((valeur, i) => i % 2 === 1)
 # Ajouter/Modifier un champ
 
 +++
-
-## ES5
+## Ajouter/Modifier un champ
+### ES5
 
 ```javascript
 var post = {
@@ -134,14 +148,15 @@ var post = {
 }
 
 var datedPost = JSON.parse(JSON.stringify(post)) // sale ?
-// Il existe des libs qui font ça proprement, mais... Trop long pour l'écran !
+// Il existe des libs qui font ça proprement, mais...
+// Trop long pour les slides !
 
 datedPost.createdDate = new Date()
-delete datedPost.random // Pas de vrai solution
+delete datedPost.random
 ```
 
 +++
-
+## Ajouter/Modifier un champ
 ### ES6 / ES2015
 
 ```javascript
@@ -150,12 +165,17 @@ const post = {
     description: 'The Toto.js Framework is gonna blow your head !'
 }
 
-const datedPost = Object.assign({}, post, {createdDate: new Date()})
+const datedPost = Object.assign(
+    {},
+    post,
+    {createdDate: new Date()}
+)
 // Attention cela le clone que le premier niveau
-delete datedPost.random // Toujours pas de vrai solution, mettre null ou undefined ?
+delete datedPost.random // Toujours pas de vrai solution,
+// mettre null ou undefined ?
 ```
 +++
-
+## Ajouter/Modifier un champ
 ### ES8 / ES2017
 
 ```javascript
@@ -172,6 +192,38 @@ const datedPost = {
 }
 // Attention cela le clone que le premier niveau
 ```
+
+---
+
+## C'est bien jolie mais je peux toujours modifier l'objet !
+
+### ES5
+
+```javascript
+const post = Object.freeze({ title: 'super titre' })
+// Attention ne freeze que le premier niveau
+```
+
+---
+
+## Oui mais immutable.js c'est fait par facebook !
+
+Avec immuatble.js vous avez de véritable objets/collections immuables !
+
+Quand éviter ?
+* Besoin de collection native à js
+* Eviter 15Kb gzippé de js en plus
+* Alergie à la programmation fonctionnelle
+* Avec vuejs ou preact par exemple
+
+Quand l'utiliser ?
+* Avoir une meilleur API de collection
+* Forcer l'immuabilité sans s'en soucier
+
++++
+
+# Et dans Angular et React ?
+Ils supportent tout deux les Iterables (ES6/ES2015) du coup l'utilisation est transparente.
 
 ---
 
