@@ -44,15 +44,31 @@ const newAfter = [...original, 'preact']
 
 const newBefore = ['preact', ...original]
 
-const [one, two, ...rest] = original
+const [one, two, ...tail] = original
 
-const newSomeWhere = [one, two, 'preact', ...rest]
+const newSomeWhere = [one, two, 'preact', ...tail]
 // ou
 const newSomeWhere2 = [
     ...original.slice(0, 2),
     'preact',
     ...original.slice(2)
 ]
+```
+
++++
+## Ajouter un élément
+### Immutable.js
+
+```javascript
+import {List} from "immutable"
+
+const original = List.of('angular', 'react', 'vue')
+
+const newAfter = original.push('preact')
+
+const newBefore = original.unshift('preact')
+
+const newSomeWhere = original.insert(2, 'preact')
 ```
 
 ---
@@ -92,6 +108,22 @@ const newSomeWhere = [
 ]
 ```
 
++++
+## Retirer un élément
+### Immutable.js
+
+```javascript
+import {List} from "immutable"
+
+const original = List.of('angular', 'react', 'vue')
+
+const lastRemoved = original.pop()
+
+const firstRemoved = original.shift()
+
+const newSomeWhere = original.delete(2)
+```
+
 ---
 
 # Altérer/filtrer les valeurs
@@ -120,12 +152,29 @@ var hypeDriven = original.filter(function (valeur, i) {
 ```javascript
 const original = ['angular', 'react', 'vue']
 
-const modified = original.map((valeur, i) =>{
+const modified = original.map((valeur, i) => {
     const prefix = i % 2 === 0 ? 'Old Fashioned' : 'Hype'
     return `${prefix} ${valeur}`
 })
 
 const hypeDriven = original.filter((valeur, i) => i % 2 === 1)
+```
+
++++
+## Altérer/filtrer les valeurs
+### Immutable.js
+
+```javascript
+import {List} from "immutable"
+
+const original = List.of('angular', 'react', 'vue')
+
+const modified = original.map((valeur, i) => {
+    var prefix = i % 2 === 0 ? 'Old Fashioned' : 'Hype'
+    return `${prefix} ${valeur}`
+})
+
+const hypeDriven = original.filter((valeur, i) => i % 2 == 1)
 ```
 
 ---
@@ -193,9 +242,27 @@ const datedPost = {
 // Attention cela ne clone que le premier niveau
 ```
 
++++
+## Ajouter/Modifier un champ
+### Immutable.js
+
+```javascript
+import {Map} from "immutable"
+
+const post = Map({
+    title: 'A New Awesome JS Framework is Born !',
+    description: 'The Toto.js Framework is gonna blow your head !'
+})
+
+const intermediate = post.delete('random')
+
+const datedPost = post.set('date', new Date())
+```
+
 ---
 
 ## C'est bien jolie mais je peux toujours modifier l'objet !
+### pour les version en js
 
 ### ES5
 
@@ -212,7 +279,7 @@ Avec immuatble.js vous avez de véritable objets/collections immuables !
 
 +++
 
-##Quand éviter ?
+## Quand éviter ?
 * Besoin de collection native à js
 * Eviter 15Kb gzippé de js en plus
 * Alergie à la programmation fonctionnelle
@@ -220,7 +287,7 @@ Avec immuatble.js vous avez de véritable objets/collections immuables !
 
 +++
 
-##Quand l'utiliser ?
+## Quand l'utiliser ?
 * Avoir une meilleur API de collection
 * Forcer l'immuabilité sans s'en soucier
 
