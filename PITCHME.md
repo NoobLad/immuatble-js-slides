@@ -1,12 +1,11 @@
-# Immutabilité en javascript
+# Immuabilité en javascript
 ## TOURS.JS #6
 ### Sans bibliothèque !
+#### ou pas...
 
 ---
 
 # Pourquoi ?
-
-Cela peut permettre dans certains cas d'augmenter les performances.
 
 ---
 
@@ -17,6 +16,7 @@ Cela peut permettre dans certains cas d'augmenter les performances.
 # Ajouter un élément
 
 +++
+
 ## Ajouter un élément
 ### ES5
 
@@ -34,6 +34,7 @@ var newSomeWhere = original
 ```
 
 +++
+
 ## Ajouter un élément
 ### ES6 / ES2015
 
@@ -56,6 +57,7 @@ const newSomeWhere2 = [
 ```
 
 +++
+
 ## Ajouter un élément
 ### Immutable.js
 
@@ -76,6 +78,7 @@ const newSomeWhere = original.insert(2, 'preact')
 # Retirer un élément
 
 +++
+
 ## Retirer un élément
 ### ES5
 
@@ -92,6 +95,7 @@ var newSomeWhere = original
 ```
 
 +++
+
 ## Retirer un élément
 ### ES6 / ES2015
 
@@ -109,6 +113,7 @@ const newSomeWhere = [
 ```
 
 +++
+
 ## Retirer un élément
 ### Immutable.js
 
@@ -129,6 +134,7 @@ const newSomeWhere = original.delete(2)
 # Altérer/filtrer les valeurs
 
 +++
+
 ## Altérer/filtrer les valeurs
 ### ES5
 
