@@ -1,11 +1,79 @@
 # Immuabilité en javascript
-## TOURS.JS #6
 ### Sans bibliothèque !
 #### ou pas...
 
 ---
 
-# Pourquoi ?
+## C'est qui ?
+
+### Ludovic Lafole
+* Développeur Web Indépendant
+* Membre Actif de PaloAltours
+ * Animateur du Tours.js et des Hacking Mondays
+ * Organisateur des rassemblements Ludum Dare à Tours et des Hitbox Apéros
+
+---
+
+## Pourquoi l'immuabilité ?
+
++++
+
+## Multithreading
+## Ok... pas en js...
+
++++
+
+## Vérifier le changement d'une valeur
+
+* PureComponent et Functional Component de React
+* ChangeDetection.onPush pour Angular
+
++++
+
+## Programmation fonctionnelle
+
+---
+
+## Vérifier le changement
+### sans immuabilité
+
+```javascript
+let a = { b : { c : 1 } }
+
+let previous = copyA()
+function aChanged() {
+    const changed = previous !== next 
+        || previous.b !== next.b 
+        || previous.b.c !== next.b.c
+    previous = copyA()
+    return changed
+}
+
+function copyA() {
+    return { b: { c: a.b.c } }
+}
+```
+
++++
+
+## Vérifier le changement
+### sans immuabilité
+
+```javascript
+let a = { b : { c : 1 } }
+
+let previous = a;
+function aChanged() {
+    const changed = previous !== a
+    previous = a
+    return changed
+}
+```
+
+---
+
+# Attention !
+## _*const*_ ne veut pas dire que votre donnée est immuable ! 
 
 ---
 
@@ -274,14 +342,39 @@ const datedPost = post.set('date', new Date())
 
 ```javascript
 const post = Object.freeze({ title: 'super titre' })
-// Attention ne freeze que le premier niveau
+// Attention n'est pas récursif
 ```
+
+---
+
+## Quand est-ce que j'en ai besoin ?
+
+### Bonne question !
+
++++
+
+## Surtout pour votre état global d'application
+### Ca rend le tracking de qui modifie quoi plus simple
+### Et le debug aussi
+
++++
+
+## Pas besoin que tout soit immuable
+### Pour les données interne de vos composants c'est peut-être pas nécéssaire 
+
+---
+
+## Quand est-ce que je perds en performance ?
+
+* Sur une grosse structure de données qui bouge souvent
+* Dans vue
 
 ---
 
 ## Oui mais immutable.js c'est fait par facebook !
 
-Avec immuatble.js vous avez de véritable objets/collections immuables !
+* Avec immutable.js vous avez de véritable objets/collections immuables !
+* Convertir d'immutable vers du js natif coûte en performance
 
 +++
 
@@ -299,8 +392,15 @@ Avec immuatble.js vous avez de véritable objets/collections immuables !
 
 +++
 
-# Et dans Angular et React ?
+## Et dans Angular et React ?
 Ils supportent tout deux les Iterables (ES6/ES2015) du coup l'utilisation est transparente.
+
+---
+
+## Conclusion
+#### On peut utiliser l'immuabilité et gagner en performance mais
+* Il faut savoir pourquoi on en a besoin
+* Il faut prévenir vos outils que vos données sont immuables
 
 ---
 
