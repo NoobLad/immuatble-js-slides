@@ -57,7 +57,7 @@ function copyA() {
 +++
 
 ## Vérifier le changement
-### sans immuabilité
+### avec immuabilité
 
 ```javascript
 let a = { b : { c : 1 } }
